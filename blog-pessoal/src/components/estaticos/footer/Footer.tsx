@@ -1,8 +1,8 @@
 import React from "react";
 import GithubIcon from '@material-ui/icons/GitHub';
-import YoutubeIcon from '@material-ui/icons/Youtube';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import { Typography, Grid } from '@material-ui/core'
+import { Typography, Grid } from '@material-ui/core';
 import { Box } from '@mui/material';
 function Footer() {
     return (
@@ -14,14 +14,14 @@ function Footer() {
                             <Typography variant="h5" align="center" gutterBottom style={{ color: "white" }}>Siga-nos nas redes sociais </Typography>
                         </Box>
                         <Box display="flex" alignItems="center" justifyContent="center">
-                            <a href="https://github.com/techchoi" target="_blank">
+                            <a href="https://github.com/techchoi" target="_blank" >
                                 <GithubIcon style={{ fontSize: 60, color: "white" }} />
                             </a>
-                            <a href="https://www.linkedin.com/in/choinina/" target="_blank">
+                            <a href="https://www.linkedin.com/in/choinina/" target="_blank" >
                                 <LinkedInIcon style={{ fontSize: 60, color: "white" }} />
                             </a>
                             <a href="https://www.youtube.com/watch?v=K5UoJesS_xQ" target="_blank">
-                                <YoutubeIcon style={{ fontSize: 60, color: "white" }} />
+                                <YouTubeIcon style={{ fontSize: 60, color: "white" }} />
                             </a>
                         </Box>
                     </Box>
