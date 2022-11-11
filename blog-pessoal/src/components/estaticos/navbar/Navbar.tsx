@@ -1,72 +1,156 @@
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles';
 import { Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
 import "./Navbar.css";
 import useLocalStorage from "react-use-localstorage";
+import { useDispatch, useSelector } from "react-redux";
+import { TokenState } from "../../../store/tokens/tokensReducer";
+import { addToken } from "../../../store/tokens/actions";
 
-function Navbar() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
 
-  const [token, setToken] = useLocalStorage('token');
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+
+  title: {
+    flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  },
+
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  inputRoot: {
+    color: 'inherit',
+  },
+
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}),
+);
+
+export default function Navbar() {
+  const token = useSelector<TokenState, TokenState['tokens']>(
+    (state) => state.tokens
+  )
   let history = useNavigate();
 
+  const dispatch = useDispatch();
+
   function goLogout() {
-    setToken('');
+    dispatch(addToken(''));
     alert("Usuário deslogado!");
     history('/login');
   }
 
-  return (
-    <>
-      <AppBar className="colornavbar" position="static">
-        <Toolbar variant="dense">
+  var navbarComponent;
+  const classes= useStyles();
+  
+  if (token !== '') {
+    navbarComponent = <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar className="navbar">
+
           <Box className="cursor">
-            <Typography className="colormyname" variant="h5" color="inherit">
-              JIHYEblog
-            </Typography>
+            <Link to='/home' className="text-decorator-none">
+              <Typography className="colormyname" variant="h5" color="inherit">
+                JIHYEblog
+              </Typography>
+            </Link>
           </Box>
 
-          <Box display="flex" justifyContent="start">
-            <Link to='/home' className="text-decorator-none">
-              <Box mx={1} className="cursor">
-                <Typography variant="h6" color="inherit">
-                  home
-                </Typography>
-              </Box>
-            </Link>
+          <Box className="text" display="flex" justifyContent="start">
             <Link to='/postagens' className="text-decorator-none">
-              <Box mx={1} className="cursor">
-                <Typography variant="h6" color="inherit">
-                  postagens
-                </Typography>
-              </Box>
+              <Typography className="cursor" variant="h6">
+                Postagens
+              </Typography>
             </Link>
+
             <Link to='/temas' className="text-decorator-none">
-              <Box mx={1} className="cursor">
-                <Typography variant="h6" color="inherit">
-                  temas
-                </Typography>
-              </Box>
+              <Typography className="cursor" variant="h6" >
+                Temas
+              </Typography>
             </Link>
+
             <Link to='/formularioTema' className="text-decorator-none">
-              <Box mx={1} className="cursor">
-                <Typography variant="h6" color="inherit">
-                  cadastrar tema
-                </Typography>
-              </Box>
+              <Typography className="cursor" variant="h6">
+                Cadastrar tema
+              </Typography>
             </Link>
+
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
 
             <Box mx={1} className="cursor" onClick={goLogout}>
               <Typography variant="h6" color="inherit">
-                logout
+                Logout
               </Typography>
             </Box>
-
           </Box>
         </Toolbar>
       </AppBar>
+    </div>
+  }
+
+  return (
+    <>
+      {navbarComponent}
     </>
   );
 }
-
-export default Navbar;
