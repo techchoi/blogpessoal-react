@@ -1,6 +1,7 @@
 import React from "react";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Typography, Grid } from "@material-ui/core";
 import { Box } from "@mui/material";
 import "./Footer.css";
@@ -23,13 +24,16 @@ function Footer() {
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" justifyContent="center">
-            <a href="https://www.github.com/jihye83/" target="_blank">
-              <GitHubIcon className="github" />
-            </a>
-            <a href="https://www.linkedin.com/in/jihye-koo/" target="_blank">
-              <LinkedInIcon className="linkedin" />
-            </a>
-          </Box>
+                            <a href="https://github.com/techchoi" target="_blank" >
+                                <GithubIcon style={{ fontSize: 60, color: "white" }} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/choinina/" target="_blank" >
+                                <LinkedInIcon style={{ fontSize: 60, color: "white" }} />
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=K5UoJesS_xQ" target="_blank">
+                                <YouTubeIcon style={{ fontSize: 60, color: "white" }} />
+                            </a>
+                        </Box>
         </Box>
         <Box className="box2">
           <Box paddingTop={1}>
